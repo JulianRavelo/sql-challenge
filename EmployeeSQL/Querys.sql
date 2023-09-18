@@ -7,7 +7,7 @@ JOIN SALARIES S ON S.EMP_NO = E.EMP_NO;
 -- 2. List the first name, last name, and hire date for the employees who were hired in 1986
 SELECT FIRST_NAME, LAST_NAME, HIRE_DATE
 FROM EMPLOYEES
-WHERE HIRE_DATE LIKE '%1986';
+WHERE EXTRACT (YEAR FROM HIRE_DATE) = '1986';
 
 -- 3. List the manager of each department along with their department number, department name, employee number, last name, and first name
 SELECT DM.DEPT_NO, D.DEPT_NAME, E.EMP_NO, E.FIRST_NAME, E.LAST_NAME
@@ -16,10 +16,10 @@ JOIN DEPARTMENTS D ON DM.DEPT_NO = D.DEPT_NO
 JOIN EMPLOYEES E ON E.EMP_NO = DM.EMP_NO;
 
 -- 4. List the department number for each employee along with that employee’s employee number, last name, first name, and department name
-SELECT E.EMP_NO, E.FIRST_NAME, E.LAST_NAME, DM.DEPT_NO, D.DEPT_NAME
+SELECT E.EMP_NO, E.FIRST_NAME, E.LAST_NAME, DE.DEPT_NO, D.DEPT_NAME
 FROM EMPLOYEES E
-JOIN DEPT_MANAGER DM ON DM.EMP_NO = E.EMP_NO
-JOIN DEPARTMENTS D ON DM.DEPT_NO = D.DEPT_NO;
+JOIN DEPT_EMP DE ON DE.EMP_NO = E.EMP_NO
+JOIN DEPARTMENTS D ON DE.DEPT_NO = D.DEPT_NO;
 
 -- 5. List first name, last name, and sex of each employee whose first name is Hercules and whose last name begins with the letter B
 SELECT FIRST_NAME, LAST_NAME, SEX
